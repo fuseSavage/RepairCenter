@@ -1,0 +1,40 @@
+{
+  "name": "repaicenter-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fuseSavage/RepaiCenter-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fuseSavage/RepaiCenter-api/issues"
+  },
+  "homepage": "https://github.com/fuseSavage/RepaiCenter-api#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "date": "^1.0.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.15",
+    "request": "^2.88.2",
+    "sequelize": "^6.12.0-alpha.1",
+    "sql-query": "^0.1.27",
+    "sql-query-identifier": "^2.2.4",
+    "yargs": "^17.2.1"
+  }
+}

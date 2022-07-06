@@ -1,0 +1,43 @@
+{
+    "type": {
+        "moto" : [
+            "Honda ฮอนด้า",
+            "Yamaha ยามาฮ่า",
+            "Harley-Davidson",
+            "Kawasaki",
+            "Suzuki ซูซูกิ",
+            "GPX จีพีเอ็กซ์",
+            "Royal Enfield",
+            "Vespa",
+            "Ducati ดูคาติ",
+            "BMW บีเอ็มดับเบิลยู",
+            "Ducati ดูคาติ",
+            "Jeep จี๊ป",
+            "Benelli",
+            "MV Agusta"
+        ],
+        "car" : [
+            "Honda",
+            "Isuzu",
+            "Suzuki",
+            "Mitsubishi",
+            "Nissan",
+            "Toyota",
+            "Mazda",
+            "Ford",
+            "Aston Martin",
+            "Lamborghini",
+            "Audi",
+            "Mercedes-Benz",
+            "Subaru",
+            "Volvo",
+            "BMW",
+            "Hyundai",
+            "MG",
+            "Mini",
+            "Chevrolet",
+            "Maserati",
+            "Thairung"
+        ]
+    }
+  }

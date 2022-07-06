@@ -1,0 +1,166 @@
+import React, { useState, useEffect } from "react";
+import { Pie, measureTextWidth } from "@ant-design/plots";
+
+// // Import services
+import { FetctDetailByGarage } from "../../services";
+import { Col, Row, Typography } from "antd";
+
+const { Title } = Typography;
+
+export default function Ecommerce(props) {
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    const getDetailByGarage = async () => {
+      let local = {
+        garageID: JSON.parse(localStorage.getItem("user")).userData.userId,
+      };
+      await FetctDetailByGarage(local).then(async (response) => {
+        await setDatas(response.data);
+      });
+    };
+    getDetailByGarage();
+  }, []);
+
+  let carlist = [];
+  let motolist = [];
+  let agirculturelist = [];
+  let totol = [];
+
+  if (datas !== null) {
+    for (let i = 0; i < datas.length; i++) {
+      if (datas[i].device_type === "รถยนต์") {
+        // console.log(datas[i].device_type);
+        carlist.push(datas[i].device_type);
+      }
+      if (datas[i].device_type === "รถจักรยานยนต์") {
+        motolist.push(datas[i].device_type);
+      }
+      if (datas[i].device_type === "อุปกรณ์การเกษตร") {
+        agirculturelist.push(datas[i].device_type);
+      }
+      totol.push(datas[i]);
+    }
+  } else {
+    // console.log('data is null', datas)
+  }
+
+  function renderStatistic(containerWidth, text, style) {
+    const { width: textWidth, height: textHeight } = measureTextWidth(
+      text,
+      style
+    );
+    const R = containerWidth / 2; // r^2 = (w / 2)^2 + (h - offsetY)^2
+
+    let scale = 1;
+
+    if (containerWidth < textWidth) {
+      scale = Math.min(
+        Math.sqrt(
+          Math.abs(
+            Math.pow(R, 2) /
+              (Math.pow(textWidth / 2, 2) + Math.pow(textHeight, 2))
+          )
+        ),
+        1
+      );
+    }
+
+    const textStyleStr = `width:${containerWidth}px;`;
+    return `<div style="${textStyleStr};font-size:${scale}em;line-height:${
+      scale < 1 ? 1 : "inherit"
+    };">${text}</div>`;
+  }
+
+  const data = [
+    {
+      type: "รถยนต์",
+      value: carlist.length,
+    },
+
+    {
+      type: "อุปกรณ์เกษตร",
+      value: agirculturelist.length,
+    },
+    {
+      type: "รถจักยานยนต์",
+      value: motolist.length,
+    },
+  ];
+  const config = {
+    appendPadding: 10,
+    data,
+    angleField: "value",
+    colorField: "type",
+    radius: 1,
+    innerRadius: 0.64,
+    meta: {
+      value: {
+        formatter: (v) => `${v} ¥`,
+      },
+    },
+    label: {
+      type: "inner",
+      offset: "-50%",
+      style: {
+        textAlign: "center",
+      },
+      autoRotate: false,
+      content: "{value}",
+    },
+    statistic: {
+      title: {
+        offsetY: -4,
+        customHtml: (container, view, datum) => {
+          const { width, height } = container.getBoundingClientRect();
+          const d = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
+          const text = datum ? datum.type : "การซ่่อมทั้งหมด";
+          return renderStatistic(d, text, {
+            fontSize: "10px",
+          });
+        },
+      },
+      content: {
+        offsetY: 4,
+        style: {
+          fontSize: "20px",
+        },
+        customHtml: (container, view, datum, data) => {
+          const { width } = container.getBoundingClientRect();
+          const text = datum
+            ? `${datum.value}`
+            : `${data.reduce((r, d) => r + d.value, 0)}`;
+          return renderStatistic(width, text, {
+            fontSize: 32,
+          });
+        },
+      },
+    },
+    // 添加 中心统计文本 交互
+    interactions: [
+      {
+        type: "element-selected",
+      },
+      {
+        type: "element-active",
+      },
+      {
+        type: "pie-statistic-active",
+      },
+    ],
+  };
+  return (
+    <>
+      <Row>
+        <Col span={18}>
+          <Title level={4}>การซ่อมของร้าน</Title>
+        </Col>
+      </Row>
+
+      <Pie {...config} />
+    </>
+  );
+}
+
+// export default DemoPie;`
+// ReactDOM.render(<DemoPie />, document.getElementById('container'));
